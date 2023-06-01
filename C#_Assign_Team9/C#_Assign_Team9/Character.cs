@@ -59,15 +59,15 @@ namespace C__Assign_Team9
 
         public void ActivateRandomSkill()
         {
-            double randomValue = rnd.NextDouble();
+            double randomValue = rnd.NextDouble(); // 0.04
             if (randomValue <= increaseSkillProbability && !isSpeedIncreased && !isStun) //스턴 시 속도 증가가 영향을 주지 않게
             {
                 IncreaseSpeed();
-            }
+            }// 0.04가 아니면서 0.07
             else if (randomValue <= increaseSkillProbability + decreaseSkillProbability && !isSpeedDecreased && !isStun) //스턴 시 속도 감소가 영향을 주지 않게
             {
                 DecreaseSpeed();
-            }
+            }// 0.04가 아니면서 0.07도 아닌 0.09
             else if (randomValue <= increaseSkillProbability + decreaseSkillProbability + stunSkillProbability && !isStun) // 스턴 재발동 막기
             {
                 Stun();

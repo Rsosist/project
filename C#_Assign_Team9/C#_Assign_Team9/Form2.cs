@@ -84,8 +84,43 @@ namespace C__Assign_Team9
             CharacterImage1.Left = CharacterImage1.Left + characterManager.character1.GetSpeed();   // 캐릭터들 이동 속도
             CharacterImage2.Left = CharacterImage2.Left + characterManager.character2.GetSpeed();
 
-            Location1.Text = $"{characterManager.character1.GetName()} : {Math.Ceiling(((double)CharacterImage1.Left / 800) * 100)} %";   // 현재 진행상황 표시
-            Location2.Text = $"{characterManager.character2.GetName()} : {Math.Ceiling(((double)CharacterImage2.Left / 800) * 100)} %";
+            double ch1 = Math.Ceiling(((double)CharacterImage1.Left / 800) * 100);
+            double ch2 = Math.Ceiling(((double)CharacterImage2.Left / 800) * 100);
+
+            Location1.Text = $"{characterManager.character1.GetName()} : {ch1} %";   // 현재 진행상황 표시
+            Location2.Text = $"{characterManager.character2.GetName()} : {ch2} %";
+
+            label1.Text = $"{ch1}"; //테스트용 라벨으로 라벨 채로 지워도 무방
+            label3.Text = $"{ch2}"; //테스트용 라벨으로 라벨 채로 지워도 무방
+
+            if (ch1 - 5.0 > ch2 && ch1 >= 70.0) //현재 5만큼 앞서있고 70 이상일때
+            {
+                characterManager.character1.Frontrunner();
+            }
+            else if (ch2 - 5.0 > ch1 && ch2 >= 70.0)
+            {
+                characterManager.character2.Frontrunner();
+            }
+            else
+            {
+                characterManager.character1.DisableFrontrunner();
+                characterManager.character2.DisableFrontrunner();
+            }
+
+
+            if (ch1 - 10.0 > ch2) //10 뒤쳐질때
+            { 
+                characterManager.character2.Lastrunner();
+            } 
+            else if(ch2 - 10.0 > ch1) 
+            { 
+                characterManager.character1.Lastrunner(); 
+            }
+            else
+            {
+                characterManager.character1.DisableLastrunner();
+                characterManager.character2.DisableLastrunner();
+            }
 
             //Naration.Text = $"{characterManager.character1.GetName()} : {CharacterImage1.Left}, {characterManager.character2.GetName()} : {CharacterImage2.Left}";  // 캐릭터별 현재 위치 프린트
 
@@ -311,6 +346,8 @@ namespace C__Assign_Team9
             // 각 주자의 스킬 확률 계산
             characterManager.character1.ActivateRandomSkill();
             characterManager.character2.ActivateRandomSkill();
+            characterManager.character1.Fatalskill();
+            characterManager.character1.Fatalskill();
             UpdateCharacterSpeedLabels(); //발동할때 속도 조정
 
             // 주자 1의 스킬 지속 시간 체크

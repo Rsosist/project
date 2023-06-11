@@ -18,15 +18,20 @@ namespace C__Assign_Team9
 
         private bool isSpeedIncreased; // 증가 스킬 중복 발동을 막는 용도
         private bool isSpeedDecreased; // 감소 스킬 중복 발동을 막는 용도
+        private bool isFinishSpeed;
+        private bool isLastSpeed;
         private bool isStun; //기절 스킬 발동 여부
         public int skillDuration; //스킬 지속 시간
 
         private const double increaseSkillProbability = 0.04; // 증가 스킬 확률 4% (여기서 확률 수정)
         private const double decreaseSkillProbability = 0.03; // 감소 스킬 확률 3% (여기서 확률 수정)
-        private const double stunSkillProbability = 0.02; // 감소 스킬 확률 2% (여기서 확률 수정)
+        private const double finishProbability = 0.015;
+        private const double lastProbability = 0.04;
+        private const double stunSkillProbability = 0.005;
 
         private Random rnd;
-
+        private bool frontActive = false;
+        private bool lastActive = false;
 
         public Character(string name, int speed)
         {
@@ -56,6 +61,11 @@ namespace C__Assign_Team9
             return skillList;
         }
 
+        public void Frontrunner() { frontActive = true; }
+        public void DisableFrontrunner() { frontActive = false; }
+
+        public void Lastrunner() { lastActive = true; }
+        public void DisableLastrunner() { lastActive = false; }
 
         public void ActivateRandomSkill()
         {
@@ -67,8 +77,20 @@ namespace C__Assign_Team9
             else if (randomValue <= increaseSkillProbability + decreaseSkillProbability && !isSpeedDecreased && !isStun) //스턴 시 속도 감소가 영향을 주지 않게
             {
                 DecreaseSpeed();
-            }// 0.04가 아니면서 0.07도 아닌 0.09
-            else if (randomValue <= increaseSkillProbability + decreaseSkillProbability + stunSkillProbability && !isStun) // 스턴 재발동 막기
+            }
+            else if (frontActive == true && randomValue <= increaseSkillProbability + decreaseSkillProbability + finishProbability && !isFinishSpeed && !isStun)
+            {
+                FinishSpeed();
+            }
+            else if (lastActive == true && randomValue <= increaseSkillProbability + decreaseSkillProbability + lastProbability && !isLastSpeed && !isStun)
+            {
+                LastSpeed();
+            }
+        }
+        public void Fatalskill()
+        {
+            double Valuerandom = rnd.Next();
+            if (Valuerandom <= stunSkillProbability && !isStun) // 스턴 재발동 막기
             {
                 Stun();
             }
@@ -78,9 +100,29 @@ namespace C__Assign_Team9
         {
             if (!isSpeedIncreased)
             {
-                speed += 5;
+                speed += 3;
                 skillDuration = 15; ////지속시간 3초 * 5(0.2초 * 5 = 1초)
                 isSpeedIncreased = true;
+            }
+        }
+
+        private void FinishSpeed()
+        {
+            if (!isFinishSpeed)
+            {
+                speed += 6;
+                skillDuration = 10;
+                isFinishSpeed = true;
+            }
+        }
+
+        private void LastSpeed()
+        {
+            if (!isLastSpeed)
+            {
+                speed += 5;
+                skillDuration = 14;
+                isLastSpeed = true;
             }
         }
 
@@ -88,7 +130,7 @@ namespace C__Assign_Team9
         {
             if (!isSpeedDecreased)
             {
-                speed -= 3;
+                speed -= 2;
                 skillDuration = 10; //2초 * 5(0.2초 * 5 = 1초)
                 isSpeedDecreased = true;
             }
@@ -110,6 +152,8 @@ namespace C__Assign_Team9
             isSpeedIncreased = false; // 증가 스킬 발동 여부 초기화
             isSpeedDecreased = false; // 감소 스킬 발동 여부 초기화
             isStun = false;
+            isFinishSpeed = false;
+            isLastSpeed = false;
         }
     }
 }

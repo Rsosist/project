@@ -54,6 +54,8 @@
             percentTimer = new System.Windows.Forms.Timer(components);
             testlabel1 = new Label();
             testlabel3 = new Label();
+            label1 = new Label();
+            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)CharacterImage1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)CharacterImage2).BeginInit();
             panel1.SuspendLayout();
@@ -308,6 +310,24 @@
             testlabel3.TabIndex = 21;
             testlabel3.Text = "label3";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(232, 367);
+            label1.Name = "label1";
+            label1.Size = new Size(39, 15);
+            label1.TabIndex = 22;
+            label1.Text = "label1";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(706, 374);
+            label3.Name = "label3";
+            label3.Size = new Size(39, 15);
+            label3.TabIndex = 23;
+            label3.Text = "label3";
+            // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -316,6 +336,8 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.None;
             ClientSize = new Size(984, 561);
+            Controls.Add(label3);
+            Controls.Add(label1);
             Controls.Add(testlabel3);
             Controls.Add(testlabel1);
             Controls.Add(Location2);
@@ -375,5 +397,7 @@
         private System.Windows.Forms.Timer percentTimer;
         private Label testlabel1;
         private Label testlabel3;
+        private Label label1;
+        private Label label3;
     }
 }

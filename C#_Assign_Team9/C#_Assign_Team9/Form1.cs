@@ -22,12 +22,12 @@ namespace C__Assign_Team9
         {
             if (characterManager.character1 == null) // 캐릭터1 or 캐릭터2가 생성안되었는지 체크
             {
-                characterManager.character1 = new Character("A", 5); //처음 받았을때 너무 빨라서 속도 5
+                characterManager.character1 = new Character("A", 4); 
             }
 
             if (characterManager.character2 == null)
             {
-                characterManager.character2 = new Character("B", 5);
+                characterManager.character2 = new Character("B", 4);
             }
             ChangeToForm2(); // 화면 이동
         }
@@ -42,13 +42,13 @@ namespace C__Assign_Team9
 
         private void NameChangeButton1_Click(object sender, EventArgs e)
         {
-            characterManager.character1 = new Character(NameInput1.Text, 5);
+            characterManager.character1 = new Character(NameInput1.Text, 4);
             //Debug.Print(characterManager.character1.GetName());
         }
 
         private void NameChangeButton2_Click(object sender, EventArgs e)
         {
-            characterManager.character2 = new Character(NameInput2.Text, 5);
+            characterManager.character2 = new Character(NameInput2.Text, 4);
         }
 
         private void Form1_Load(object sender, EventArgs e)
